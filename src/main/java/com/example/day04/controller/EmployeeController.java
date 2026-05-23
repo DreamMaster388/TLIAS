@@ -6,6 +6,8 @@ import com.example.day04.mapper.EmployeeMapper;
 import jakarta.websocket.server.PathParam;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @RestController
 @RequestMapping("/api/employees")
 public class EmployeeController {
@@ -33,5 +35,10 @@ public class EmployeeController {
     @DeleteMapping("/{id}")
     public boolean delete(@PathVariable long id) {
         return employeeMapper.delete(id);
+    }
+
+    @PostMapping
+    public void insert(@RequestBody Employee employ){
+        employeeMapper.insert(employ);
     }
 }

@@ -4,6 +4,7 @@ import com.example.day04.entity.Employee;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Mapper
@@ -21,4 +22,6 @@ public interface EmployeeMapper {
                @Param("position") String position);
 
     boolean delete(@Param("id") long id);
+
+    void insert(Employee employee);
 }

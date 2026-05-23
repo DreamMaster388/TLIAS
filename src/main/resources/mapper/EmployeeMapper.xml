@@ -42,4 +42,9 @@
     <delete id="delete">
         DELETE FROM employee WHERE id = #{id}
     </delete>
+
+    <insert id="insert">
+        INSERT INTO employee (name, gender, department, position, entry_date)
+        VALUES (#{name}, #{gender}, #{department}, #{position}, #{entryDate})
+    </insert>
 </mapper>

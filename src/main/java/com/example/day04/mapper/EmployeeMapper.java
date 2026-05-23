@@ -24,4 +24,7 @@ public interface EmployeeMapper {
     boolean delete(@Param("id") long id);
 
     void insert(Employee employee);
+
+    boolean edit(@Param("id") long id,
+                 @Param("employee") Employee employee);
 }

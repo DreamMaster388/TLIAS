@@ -38,7 +38,12 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public void insert(@RequestBody Employee employ){
-        employeeMapper.insert(employ);
+    public void insert(@RequestBody Employee employee){
+        employeeMapper.insert(employee);
+    }
+
+    @PutMapping("/{id}")
+    public boolean edit(@PathVariable long id, @RequestBody Employee employee) {
+        return employeeMapper.edit(id, employee);
     }
 }

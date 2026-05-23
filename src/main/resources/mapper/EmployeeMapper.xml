@@ -47,4 +47,14 @@
         INSERT INTO employee (name, gender, department, position, entry_date)
         VALUES (#{name}, #{gender}, #{department}, #{position}, #{entryDate})
     </insert>
+
+    <update id="edit">
+        UPDATE employee
+        SET name = #{employee.name},
+            gender = #{employee.gender},
+            department = #{employee.department},
+            position = #{employee.position},
+            entry_date = #{employee.entryDate}
+        WHERE id = #{id}
+    </update>
 </mapper>

@@ -15,13 +15,22 @@ const app = Vue.createApp({
             deleteTarget: null,
             showDeleteModal: false,
             showAddModal: false,
+            showEditModal: false,
+            editTarget: null,
             addForm: {
                 name: '',
                 gender: '男',
                 department: '',
                 position: '',
                 entryDate: ''
-            }
+            },
+            editForm: {
+                name: '',
+                gender: '男',
+                department: '',
+                position: '',
+                entryDate: ''
+            },
         }
     },
     computed: {
@@ -83,7 +92,8 @@ const app = Vue.createApp({
         },
         confirmDelete() {
             const id = this.deleteTarget.id;
-            fetch(`/api/employees/${id}`, { method: 'DELETE' })
+            fetch(`/api/employees/${id}`,
+            { method: 'DELETE' })
                 .then(() => {
                     this.showDeleteModal = false;
                     this.deleteTarget = null;
@@ -94,8 +104,24 @@ const app = Vue.createApp({
             this.showDeleteModal = false;
             this.deleteTarget = null;
         },
-        editRow(d) {
-            alert('编辑 ' + d.name);
+        openEditModal(d){
+            this.editTarget = d;
+            this.editForm = { name: d.name, gender: d.gender, department: d.department, position: d.position, entryDate: d.entryDate };
+            this.showEditModal = true;
+        },
+        closeEditModal() {
+            this.showEditModal = false;
+        },
+        editEmployee() {
+            const id = this.editTarget.id;
+            fetch(`/api/employees/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(this.editForm)
+            }).then(() => {
+                this.showEditModal = false;
+                this.fetchEmployees();
+            });
         },
         openAddModal() {
             this.addForm = { name: '', gender: '男', department: '', position: '', entryDate: '' };

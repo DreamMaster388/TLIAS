@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tlias 智能学习辅助系统</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+</head>
+<body>
+    <div id="app">
+    <div class="navbar">
+        <h1>tlias 智能学习辅助系统</h1>
+        <div class="notify-wrap">
+<div class="notify-track">
+                <span>尊敬的各位同学，系统将于 2026年5月20日 22:00 至 5月21日 06:00 进行停机维护升级，届时无法正常访问，给您带来的不便敬请谅解！</span>
+            </div>
+        </div>
+        <button class="btn-search-nav" @click="openSearchModal">搜索</button>
+        <button class="btn-add-nav" @click="openAddModal">添加员工</button>
+        <button class="logout">退出登录</button>
+    </div>
+    <div class="table-section">
+        <table>
+            <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>头像</th>
+                    <th>所属部门</th>
+                    <th>职位</th>
+                    <th>入职日期</th>
+                    <th>最后操作时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-if="pageData.length === 0">
+                    <td colspan="8" class="empty-hint">未搜索到任何信息</td>
+                </tr>
+                <tr v-for="(d, i) in pageData" :key="d.name" :style="{ animation: `fadeInRow .35s ease ${i * 0.06}s both` }">
+                    <td>{{ d.name }}</td>
+                    <td>{{ d.gender }}</td>
+                    <td></td>
+                    <td>{{ d.department }}</td>
+                    <td>{{ d.position }}</td>
+                    <td>{{ d.entryDate }}</td>
+                    <td>{{ d.lastOperationTime }}</td>
+                    <td>
+                        <button class="btn-edit" @click="editRow(d)">编辑</button>
+                        <button class="btn-delete" @click="deleteRow(d)">删除</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="pagination">
+            <button :disabled="currentPage <= 1" @click="goPage(1)">首页</button>
+            <button :disabled="currentPage <= 1" @click="goPage(currentPage - 1)">上一页</button>
+            <span class="page-info">第 {{ currentPage }} / {{ totalPages }} 页</span>
+            <input type="number" v-model.number="jumpPage" :min="1" :max="totalPages" placeholder="页码">
+            <button @click="jumpToPage">跳转</button>
+            <button :disabled="currentPage >= totalPages" @click="goPage(currentPage + 1)">下一页</button>
+            <button :disabled="currentPage >= totalPages" @click="goPage(totalPages)">尾页</button>
+            <span class="total">共 {{ total }} 条</span>
+        </div>
+    </div>
+    <div class="footer">
+        <p>上海神州教育科技股份有限公司</p>
+        <p>版权所有 &copy; 2026 tlias 智能学习辅助系统 All Rights Reserved.</p>
+    </div>
+    <div class="modal-overlay" v-if="showSearchModal" @click.self="closeSearchModal">
+        <div class="modal-box">
+            <h3>搜索条件</h3>
+            <div class="modal-form">
+                <input type="text" placeholder="姓名" v-model="searchName">
+                <select v-model="searchGender">
+                    <option value="">性别</option>
+                    <option>男</option>
+                    <option>女</option>
+                </select>
+                <input type="text" placeholder="部门" v-model="searchDepartment">
+                <input type="text" placeholder="职位" v-model="searchPosition">
+            </div>
+            <div class="modal-actions">
+                <button class="btn-search" @click="search">搜索</button>
+                <button class="btn-clear" @click="clear">清空</button>
+                <button class="btn-clear" @click="closeSearchModal">取消</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-overlay" v-if="showDeleteModal" @click.self="cancelDelete">
+        <div class="modal-box modal-sm">
+            <h3>确认删除</h3>
+            <p class="confirm-text">确定要删除员工「{{ deleteTarget.name }}」吗？</p>
+            <div class="modal-actions">
+                <button class="btn-search" @click="confirmDelete">确认</button>
+                <button class="btn-clear" @click="cancelDelete">取消</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-overlay" v-if="showAddModal" @click.self="closeAddModal">
+        <div class="modal-box">
+            <h3>添加员工</h3>
+            <div class="modal-form">
+                <input type="text" placeholder="姓名" v-model="addForm.name">
+                <select v-model="addForm.gender">
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+                <input type="text" placeholder="所属部门" v-model="addForm.department">
+                <select v-model="addForm.position">
+                    <option value="">职位</option>
+                    <option>讲师</option>
+                    <option>班主任</option>
+                    <option>学员</option>
+                </select>
+                <input type="date" v-model="addForm.entryDate">
+            </div>
+            <div class="modal-actions">
+                <button class="btn-search" @click="saveEmployee">保存</button>
+                <button class="btn-clear" @click="closeAddModal">取消</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+</html>

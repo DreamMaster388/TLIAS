@@ -44,8 +44,8 @@
     </delete>
 
     <insert id="insert">
-        INSERT INTO employee (name, gender, department, position, entry_date)
-        VALUES (#{name}, #{gender}, #{department}, #{position}, #{entryDate})
+        INSERT INTO employee (name, gender, department, position, entry_date, last_operation_time)
+        VALUES (#{name}, #{gender}, #{department}, #{position}, #{entryDate}, NOW())
     </insert>
 
     <update id="edit">
@@ -54,7 +54,8 @@
             gender = #{employee.gender},
             department = #{employee.department},
             position = #{employee.position},
-            entry_date = #{employee.entryDate}
+            entry_date = #{employee.entryDate},
+            last_operation_time = NOW()
         WHERE id = #{id}
     </update>
 </mapper>

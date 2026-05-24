@@ -12,10 +12,10 @@
                 AND gender = #{gender}
             </if>
             <if test="department != null and department != ''">
-                AND department = #{department}
+                AND department LIKE CONCAT('%', #{department}, '%')
             </if>
             <if test="position != null and position != ''">
-                AND position = #{position}
+                AND position LIKE CONCAT('%', #{position}, '%')
             </if>
         </where>
         LIMIT #{size} OFFSET #{offset}
@@ -31,10 +31,10 @@
                 AND gender = #{gender}
             </if>
             <if test="department != null and department != ''">
-                AND department = #{department}
+                AND department LIKE CONCAT('%', #{department}, '%')
             </if>
             <if test="position != null and position != ''">
-                AND position = #{position}
+                AND position LIKE CONCAT('%', #{position}, '%')
             </if>
         </where>
     </select>

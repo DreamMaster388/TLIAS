@@ -21,7 +21,10 @@ public interface EmployeeMapper {
                @Param("department") String department,
                @Param("position") String position);
 
-    boolean delete(@Param("id") long id);
+    void delete(@Param("id") long id);
 
     void insert(Employee employee);
+
+    void edit(@Param("id") long id,
+                 @Param("employee") Employee employee);
 }

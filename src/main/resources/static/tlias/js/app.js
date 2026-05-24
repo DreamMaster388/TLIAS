@@ -60,8 +60,10 @@ const app = Vue.createApp({
             fetch(`/api/employees?${params.toString()}`)
                 .then(res => res.json())
                 .then(result => {
-                    this.employees = result.data;
-                    this.total = result.total;
+                    if (result.code === 1) {
+                        this.employees = result.data.data;
+                        this.total = result.data.total;
+                    }
                 });
         },
         clear() {

@@ -1,5 +1,6 @@
 package com.example.day04.service.impl;
 
+import com.example.day04.dto.EmployeeSearchCriteria;
 import com.example.day04.entity.Employee;
 import com.example.day04.mapper.EmployeeMapper;
 import com.example.day04.service.EmployeeService;
@@ -17,13 +18,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<Employee> searchPage(String name, String gender, String department, String position, int offset, int size) {
-        return employeeMapper.searchPage(name, gender, department, position, offset, size);
+    public List<Employee> searchPage(EmployeeSearchCriteria criteria, int offset, int size) {
+        return employeeMapper.searchPage(criteria, offset, size);
     }
 
     @Override
-    public long count(String name, String gender, String department, String position) {
-        return employeeMapper.count(name, gender, department, position);
+    public long count(EmployeeSearchCriteria criteria) {
+        return employeeMapper.count(criteria);
     }
 
     @Override

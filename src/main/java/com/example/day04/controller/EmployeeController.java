@@ -1,6 +1,5 @@
 package com.example.day04.controller;
 
-import com.example.day04.dto.EmployeeSearchCriteria;
 import com.example.day04.dto.PageResult;
 import com.example.day04.dto.Result;
 import com.example.day04.entity.Employee;
@@ -18,11 +17,17 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public Result<PageResult<Employee>> search(EmployeeSearchCriteria criteria) {
-        int offset = (criteria.getPage() - 1) * criteria.getSize();
+    public Result<PageResult<Employee>> search(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String gender,
+            @RequestParam(required = false) String department,
+            @RequestParam(required = false) String position,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        int offset = (page - 1) * size;
         PageResult<Employee> pr = new PageResult<>(
-                employeeService.searchPage(criteria, offset, criteria.getSize()),
-                employeeService.count(criteria)
+                employeeService.searchPage(name, gender, department, position, offset, size),
+                employeeService.count(name, gender, department, position)
         );
         return Result.success(pr);
     }

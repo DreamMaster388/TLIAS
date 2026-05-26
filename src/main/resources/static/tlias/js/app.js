@@ -9,6 +9,10 @@ const app = Vue.createApp({
             searchGender: '',
             searchDepartment: '',
             searchPosition: '',
+            searchMinSalary: '',
+            searchMaxSalary: '',
+            searchMinEntryDate: '',
+            searchMaxEntryDate: '',
             currentPage: 1,
             jumpPage: null,
             showSearchModal: false,
@@ -56,6 +60,10 @@ const app = Vue.createApp({
             if (this.searchGender) params.append('gender', this.searchGender);
             if (this.searchDepartment) params.append('department', this.searchDepartment);
             if (this.searchPosition) params.append('position', this.searchPosition);
+            if (this.searchMinSalary) params.append('minSalary', this.searchMinSalary);
+            if (this.searchMaxSalary) params.append('maxSalary', this.searchMaxSalary);
+            if (this.searchMinEntryDate) params.append('minEntryDate', this.searchMinEntryDate);
+            if (this.searchMaxEntryDate) params.append('maxEntryDate', this.searchMaxEntryDate);
             params.append('page', this.currentPage);
             params.append('size', PAGE_SIZE);
 
@@ -73,6 +81,10 @@ const app = Vue.createApp({
             this.searchGender = '';
             this.searchDepartment = '';
             this.searchPosition = '';
+            this.searchMinSalary = '';
+            this.searchMaxSalary = '';
+            this.searchMinEntryDate = '';
+            this.searchMaxEntryDate = '';
         },
         search() {
             this.currentPage = 1;

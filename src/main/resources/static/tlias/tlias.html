@@ -80,6 +80,10 @@
                 </select>
                 <input type="text" placeholder="部门" v-model="searchDepartment">
                 <input type="text" placeholder="职位" v-model="searchPosition">
+            <input type="number" step="0.01" placeholder="最低月薪" v-model="searchMinSalary">
+            <input type="number" step="0.01" placeholder="最高月薪" v-model="searchMaxSalary">
+            <input type="date" placeholder="入职起始日期" v-model="searchMinEntryDate">
+            <input type="date" placeholder="入职结束日期" v-model="searchMaxEntryDate">
             </div>
             <div class="modal-actions">
                 <button class="btn-search" @click="search">搜索</button>

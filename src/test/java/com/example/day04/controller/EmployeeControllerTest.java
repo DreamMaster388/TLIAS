@@ -1,5 +1,6 @@
 package com.example.day04.controller;
 
+import com.example.day04.dto.EmployeeSearchCriteria;
 import com.example.day04.dto.PageResult;
 import com.example.day04.dto.Result;
 import com.example.day04.entity.Employee;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -47,12 +49,13 @@ class EmployeeControllerTest {
                 createEmployee(1L, "张三"),
                 createEmployee(2L, "李四")
         );
-        when(employeeService.searchPage(any(), any(), any(), any(), anyInt(), anyInt()))
+        when(employeeService.searchPage(any(EmployeeSearchCriteria.class), anyInt(), anyInt()))
                 .thenReturn(employees);
-        when(employeeService.count(any(), any(), any(), any()))
+        when(employeeService.count(any(EmployeeSearchCriteria.class)))
                 .thenReturn(100L);
 
-        Result<PageResult<Employee>> result = controller.search(null, null, null, null, 1, 10);
+        EmployeeSearchCriteria criteria = new EmployeeSearchCriteria();
+        Result<PageResult<Employee>> result = controller.search(criteria);
 
         assertEquals(1, result.getCode());
         PageResult<Employee> pr = result.getData();
@@ -62,25 +65,65 @@ class EmployeeControllerTest {
 
     @Test
     void search_withAllParams_shouldPassToService() {
-        when(employeeService.searchPage(any(), any(), any(), any(), anyInt(), anyInt()))
+        when(employeeService.searchPage(any(EmployeeSearchCriteria.class), anyInt(), anyInt()))
                 .thenReturn(List.of());
-        when(employeeService.count(any(), any(), any(), any()))
+        when(employeeService.count(any(EmployeeSearchCriteria.class)))
                 .thenReturn(0L);
 
-        controller.search("张", "男", "教学", "讲师", 2, 5);
+        EmployeeSearchCriteria criteria = new EmployeeSearchCriteria();
+        criteria.setName("张");
+        criteria.setGender("男");
+        criteria.setDepartment("教学");
+        criteria.setPosition("讲师");
+        criteria.setPage(2);
+        criteria.setSize(5);
+        controller.search(criteria);
 
-        verify(employeeService).searchPage("张", "男", "教学", "讲师", 5, 5);
-        verify(employeeService).count("张", "男", "教学", "讲师");
+        verify(employeeService).searchPage(criteria, 5, 5);
+        verify(employeeService).count(criteria);
+    }
+
+    @Test
+    void search_withSalaryRange_shouldPassToService() {
+        when(employeeService.searchPage(any(EmployeeSearchCriteria.class), anyInt(), anyInt()))
+                .thenReturn(List.of());
+        when(employeeService.count(any(EmployeeSearchCriteria.class)))
+                .thenReturn(0L);
+
+        EmployeeSearchCriteria criteria = new EmployeeSearchCriteria();
+        criteria.setMinSalary(new BigDecimal("5000"));
+        criteria.setMaxSalary(new BigDecimal("15000"));
+        controller.search(criteria);
+
+        verify(employeeService).searchPage(criteria, 0, 10);
+        verify(employeeService).count(criteria);
+    }
+
+    @Test
+    void search_withEntryDateRange_shouldPassToService() {
+        when(employeeService.searchPage(any(EmployeeSearchCriteria.class), anyInt(), anyInt()))
+                .thenReturn(List.of());
+        when(employeeService.count(any(EmployeeSearchCriteria.class)))
+                .thenReturn(0L);
+
+        EmployeeSearchCriteria criteria = new EmployeeSearchCriteria();
+        criteria.setMinEntryDate(LocalDate.of(2024, 1, 1));
+        criteria.setMaxEntryDate(LocalDate.of(2024, 12, 31));
+        controller.search(criteria);
+
+        verify(employeeService).searchPage(criteria, 0, 10);
+        verify(employeeService).count(criteria);
     }
 
     @Test
     void search_emptyResult_shouldReturnZeroTotal() {
-        when(employeeService.searchPage(any(), any(), any(), any(), anyInt(), anyInt()))
+        when(employeeService.searchPage(any(EmployeeSearchCriteria.class), anyInt(), anyInt()))
                 .thenReturn(List.of());
-        when(employeeService.count(any(), any(), any(), any()))
+        when(employeeService.count(any(EmployeeSearchCriteria.class)))
                 .thenReturn(0L);
 
-        Result<PageResult<Employee>> result = controller.search(null, null, null, null, 1, 10);
+        EmployeeSearchCriteria criteria = new EmployeeSearchCriteria();
+        Result<PageResult<Employee>> result = controller.search(criteria);
 
         assertEquals(1, result.getCode());
         assertEquals(0, result.getData().getTotal());

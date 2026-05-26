@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tlias 智能学习辅助系统</title>
+    <title>智能员工管理系统</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
 </head>
 <body>
     <div id="app">
     <div class="navbar">
-        <h1>tlias 智能学习辅助系统</h1>
+        <h1>IEMS 智能员工管理系统</h1>
         <div class="notify-wrap">
 <div class="notify-track">
                 <span>尊敬的各位同学，系统将于 2026年5月20日 22:00 至 5月21日 06:00 进行停机维护升级，届时无法正常访问，给您带来的不便敬请谅解！</span>
@@ -26,9 +26,9 @@
                 <tr>
                     <th>姓名</th>
                     <th>性别</th>
-                    <th>头像</th>
                     <th>所属部门</th>
                     <th>职位</th>
+                    <th>月薪(元)</th>
                     <th>入职日期</th>
                     <th>最后操作时间</th>
                     <th>操作</th>
@@ -41,9 +41,9 @@
                 <tr v-for="(d, i) in pageData" :key="d.name" :style="{ animation: `fadeInRow .35s ease ${i * 0.06}s both` }">
                     <td>{{ d.name }}</td>
                     <td>{{ d.gender }}</td>
-                    <td></td>
                     <td>{{ d.department }}</td>
                     <td>{{ d.position }}</td>
+                    <td>{{ d.salary }}</td>
                     <td>{{ d.entryDate }}</td>
                     <td>{{ d.lastOperationTime }}</td>
                     <td>
@@ -65,8 +65,8 @@
         </div>
     </div>
     <div class="footer">
-        <p>上海神州教育科技股份有限公司</p>
-        <p>版权所有 &copy; 2026 tlias 智能学习辅助系统 All Rights Reserved.</p>
+        <p>上海神州科技股份有限公司</p>
+        <p>版权所有 &copy; 2026 IEMS 智能员工管理系统 All Rights Reserved.</p>
     </div>
     <div class="modal-overlay" v-if="showSearchModal" @click.self="closeSearchModal">
         <div class="modal-box">
@@ -80,6 +80,10 @@
                 </select>
                 <input type="text" placeholder="部门" v-model="searchDepartment">
                 <input type="text" placeholder="职位" v-model="searchPosition">
+            <input type="number" step="0.01" placeholder="最低月薪" v-model="searchMinSalary">
+            <input type="number" step="0.01" placeholder="最高月薪" v-model="searchMaxSalary">
+            <input type="date" placeholder="入职起始日期" v-model="searchMinEntryDate">
+            <input type="date" placeholder="入职结束日期" v-model="searchMaxEntryDate">
             </div>
             <div class="modal-actions">
                 <button class="btn-search" @click="search">搜索</button>
@@ -109,6 +113,7 @@
                 </select>
                 <input type="text" placeholder="所属部门" v-model="addForm.department">
                 <input type="text" placeholder="职位" v-model="addForm.position">
+                <input type="number" step="0.01" placeholder="月薪(元)" v-model="addForm.salary">
                 <input type="date" v-model="addForm.entryDate">
             </div>
             <div class="modal-actions">
@@ -128,6 +133,7 @@
                 </select>
                 <input type="text" placeholder="所属部门" v-model="editForm.department">
                 <input type="text" placeholder="职位" v-model="editForm.position">
+                <input type="number" step="0.01" placeholder="月薪(元)" v-model="editForm.salary">
                 <input type="date" v-model="editForm.entryDate">
             </div>
             <div class="modal-actions">

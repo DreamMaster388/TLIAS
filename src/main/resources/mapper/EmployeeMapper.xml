@@ -5,17 +5,29 @@
     <select id="searchPage" resultType="Employee">
         SELECT * FROM employee
         <where>
-            <if test="name != null and name != ''">
-                AND name LIKE CONCAT('%', #{name}, '%')
+            <if test="criteria.name != null and criteria.name != ''">
+                AND name LIKE CONCAT('%', #{criteria.name}, '%')
             </if>
-            <if test="gender != null and gender != ''">
-                AND gender = #{gender}
+            <if test="criteria.gender != null and criteria.gender != ''">
+                AND gender = #{criteria.gender}
             </if>
-            <if test="department != null and department != ''">
-                AND department LIKE CONCAT('%', #{department}, '%')
+            <if test="criteria.department != null and criteria.department != ''">
+                AND department LIKE CONCAT('%', #{criteria.department}, '%')
             </if>
-            <if test="position != null and position != ''">
-                AND position LIKE CONCAT('%', #{position}, '%')
+            <if test="criteria.position != null and criteria.position != ''">
+                AND position LIKE CONCAT('%', #{criteria.position}, '%')
+            </if>
+            <if test="criteria.minSalary != null">
+                AND salary &gt;= #{criteria.minSalary}
+            </if>
+            <if test="criteria.maxSalary != null">
+                AND salary &lt;= #{criteria.maxSalary}
+            </if>
+            <if test="criteria.minEntryDate != null">
+                AND entry_date &gt;= #{criteria.minEntryDate}
+            </if>
+            <if test="criteria.maxEntryDate != null">
+                AND entry_date &lt;= #{criteria.maxEntryDate}
             </if>
         </where>
         LIMIT #{size} OFFSET #{offset}
@@ -24,17 +36,29 @@
     <select id="count" resultType="long">
         SELECT COUNT(*) FROM employee
         <where>
-            <if test="name != null and name != ''">
-                AND name LIKE CONCAT('%', #{name}, '%')
+            <if test="criteria.name != null and criteria.name != ''">
+                AND name LIKE CONCAT('%', #{criteria.name}, '%')
             </if>
-            <if test="gender != null and gender != ''">
-                AND gender = #{gender}
+            <if test="criteria.gender != null and criteria.gender != ''">
+                AND gender = #{criteria.gender}
             </if>
-            <if test="department != null and department != ''">
-                AND department LIKE CONCAT('%', #{department}, '%')
+            <if test="criteria.department != null and criteria.department != ''">
+                AND department LIKE CONCAT('%', #{criteria.department}, '%')
             </if>
-            <if test="position != null and position != ''">
-                AND position LIKE CONCAT('%', #{position}, '%')
+            <if test="criteria.position != null and criteria.position != ''">
+                AND position LIKE CONCAT('%', #{criteria.position}, '%')
+            </if>
+            <if test="criteria.minSalary != null">
+                AND salary &gt;= #{criteria.minSalary}
+            </if>
+            <if test="criteria.maxSalary != null">
+                AND salary &lt;= #{criteria.maxSalary}
+            </if>
+            <if test="criteria.minEntryDate != null">
+                AND entry_date &gt;= #{criteria.minEntryDate}
+            </if>
+            <if test="criteria.maxEntryDate != null">
+                AND entry_date &lt;= #{criteria.maxEntryDate}
             </if>
         </where>
     </select>
@@ -44,8 +68,8 @@
     </delete>
 
     <insert id="insert">
-        INSERT INTO employee (name, gender, department, position, entry_date, last_operation_time)
-        VALUES (#{name}, #{gender}, #{department}, #{position}, #{entryDate}, NOW())
+        INSERT INTO employee (name, gender, department, position, salary, entry_date, last_operation_time)
+        VALUES (#{name}, #{gender}, #{department}, #{position}, #{salary}, #{entryDate}, NOW())
     </insert>
 
     <update id="edit">
@@ -54,6 +78,7 @@
             gender = #{employee.gender},
             department = #{employee.department},
             position = #{employee.position},
+            salary = #{employee.salary},
             entry_date = #{employee.entryDate},
             last_operation_time = NOW()
         WHERE id = #{id}

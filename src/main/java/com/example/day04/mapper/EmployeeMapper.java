@@ -1,25 +1,19 @@
 package com.example.day04.mapper;
 
+import com.example.day04.dto.EmployeeSearchCriteria;
 import com.example.day04.entity.Employee;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Mapper
 public interface EmployeeMapper {
-    List<Employee> searchPage(@Param("name") String name,
-                              @Param("gender") String gender,
-                              @Param("department") String department,
-                              @Param("position") String position,
+    List<Employee> searchPage(@Param("criteria") EmployeeSearchCriteria criteria,
                               @Param("offset") int offset,
                               @Param("size") int size);
 
-    long count(@Param("name") String name,
-               @Param("gender") String gender,
-               @Param("department") String department,
-               @Param("position") String position);
+    long count(@Param("criteria") EmployeeSearchCriteria criteria);
 
     void delete(@Param("id") long id);
 

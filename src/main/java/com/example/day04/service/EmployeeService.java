@@ -1,13 +1,14 @@
 package com.example.day04.service;
 
+import com.example.day04.dto.EmployeeSearchCriteria;
 import com.example.day04.entity.Employee;
 
 import java.util.List;
 
 public interface EmployeeService {
-    List<Employee> searchPage(String name, String gender, String department, String position, int offset, int size);
+    List<Employee> searchPage(EmployeeSearchCriteria criteria, int offset, int size);
 
-    long count(String name, String gender, String department, String position);
+    long count(EmployeeSearchCriteria criteria);
 
     void insert(Employee employee);
 

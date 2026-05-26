@@ -22,7 +22,6 @@ const app = Vue.createApp({
                 gender: '男',
                 department: '',
                 position: '',
-                salary: null,
                 entryDate: ''
             },
             editForm: {
@@ -30,7 +29,6 @@ const app = Vue.createApp({
                 gender: '男',
                 department: '',
                 position: '',
-                salary: null,
                 entryDate: ''
             },
         }
@@ -110,7 +108,7 @@ const app = Vue.createApp({
         },
         openEditModal(d){
             this.editTarget = d;
-            this.editForm = { name: d.name, gender: d.gender, department: d.department, position: d.position, salary: d.salary, entryDate: d.entryDate };
+            this.editForm = { name: d.name, gender: d.gender, department: d.department, position: d.position, entryDate: d.entryDate };
             this.showEditModal = true;
         },
         closeEditModal() {
@@ -128,7 +126,7 @@ const app = Vue.createApp({
             });
         },
         openAddModal() {
-            this.addForm = { name: '', gender: '男', department: '', position: '', salary: null, entryDate: '' };
+            this.addForm = { name: '', gender: '男', department: '', position: '', entryDate: '' };
             this.showAddModal = true;
         },
         closeAddModal() {

@@ -5,6 +5,11 @@ const app = Vue.createApp({
         return {
             employees: [],
             total: 0,
+            departments: [],
+            addPositions: [],
+            editPositions: [],
+            addDeptId: null,
+            editDeptId: null,
             searchName: '',
             searchGender: '',
             searchDepartment: '',
@@ -24,16 +29,14 @@ const app = Vue.createApp({
             addForm: {
                 name: '',
                 gender: '男',
-                department: '',
-                position: '',
+                deptPosId: null,
                 salary: null,
                 entryDate: ''
             },
             editForm: {
                 name: '',
                 gender: '男',
-                department: '',
-                position: '',
+                deptPosId: null,
                 salary: null,
                 entryDate: ''
             },
@@ -53,6 +56,31 @@ const app = Vue.createApp({
         },
         closeSearchModal() {
             this.showSearchModal = false;
+        },
+        fetchDepartments() {
+            fetch('/api/departments')
+                .then(res => res.json())
+                .then(data => { this.departments = data; });
+        },
+        fetchAddPositions() {
+            if (!this.addDeptId) { this.addPositions = []; return; }
+            fetch(`/api/departments/${this.addDeptId}/positions`)
+                .then(res => res.json())
+                .then(data => { this.addPositions = data; });
+        },
+        fetchEditPositions() {
+            if (!this.editDeptId) { this.editPositions = []; return; }
+            fetch(`/api/departments/${this.editDeptId}/positions`)
+                .then(res => res.json())
+                .then(data => { this.editPositions = data; });
+        },
+        onAddDeptChange() {
+            this.addForm.deptPosId = null;
+            this.fetchAddPositions();
+        },
+        onEditDeptChange() {
+            this.editForm.deptPosId = null;
+            this.fetchEditPositions();
         },
         fetchEmployees() {
             const params = new URLSearchParams();
@@ -120,9 +148,18 @@ const app = Vue.createApp({
             this.showDeleteModal = false;
             this.deleteTarget = null;
         },
-        openEditModal(d){
+        openEditModal(d) {
             this.editTarget = d;
-            this.editForm = { name: d.name, gender: d.gender, department: d.department, position: d.position, salary: d.salary, entryDate: d.entryDate };
+            this.editForm = { name: d.name, gender: d.gender, deptPosId: d.deptPosId, salary: d.salary, entryDate: d.entryDate };
+            const dept = this.departments.find(dep => dep.name === d.department);
+            this.editDeptId = dept ? dept.id : null;
+            if (this.editDeptId) {
+                fetch(`/api/departments/${this.editDeptId}/positions`)
+                    .then(res => res.json())
+                    .then(data => {
+                        this.editPositions = data;
+                    });
+            }
             this.showEditModal = true;
         },
         closeEditModal() {
@@ -140,7 +177,9 @@ const app = Vue.createApp({
             });
         },
         openAddModal() {
-            this.addForm = { name: '', gender: '男', department: '', position: '', salary: null, entryDate: '' };
+            this.addForm = { name: '', gender: '男', deptPosId: null, salary: null, entryDate: '' };
+            this.addDeptId = null;
+            this.addPositions = [];
             this.showAddModal = true;
         },
         closeAddModal() {
@@ -160,6 +199,7 @@ const app = Vue.createApp({
     },
     mounted() {
         this.fetchEmployees();
+        this.fetchDepartments();
     }
 });
 

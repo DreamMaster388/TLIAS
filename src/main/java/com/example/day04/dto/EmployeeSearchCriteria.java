@@ -4,13 +4,14 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 public class EmployeeSearchCriteria {
     private String name;
     private String gender;
-    private String department;
-    private String position;
+    private List<Long> departmentIds;
+    private List<String> positionNames;
     private BigDecimal minSalary;
     private BigDecimal maxSalary;
     private LocalDate minEntryDate;

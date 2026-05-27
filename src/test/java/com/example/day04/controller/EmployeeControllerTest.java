@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -73,8 +74,8 @@ class EmployeeControllerTest {
         EmployeeSearchCriteria criteria = new EmployeeSearchCriteria();
         criteria.setName("张");
         criteria.setGender("男");
-        criteria.setDepartment("教学");
-        criteria.setPosition("讲师");
+        criteria.setDepartmentIds(List.of(1L, 2L));
+        criteria.setPositionNames(List.of("讲师", "班主任"));
         criteria.setPage(2);
         criteria.setSize(5);
         controller.search(criteria);

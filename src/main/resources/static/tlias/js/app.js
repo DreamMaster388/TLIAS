@@ -12,8 +12,11 @@ const app = Vue.createApp({
             editDeptId: null,
             searchName: '',
             searchGender: '',
-            searchDepartment: '',
-            searchPosition: '',
+            searchDepartmentIds: [],
+            searchPositionNames: [],
+            searchDeptDropdownOpen: false,
+            searchPosDropdownOpen: false,
+            searchAvailablePositions: [],
             searchMinSalary: '',
             searchMaxSalary: '',
             searchMinEntryDate: '',
@@ -57,6 +60,53 @@ const app = Vue.createApp({
         closeSearchModal() {
             this.showSearchModal = false;
         },
+        toggleDeptDropdown() {
+            this.searchDeptDropdownOpen = !this.searchDeptDropdownOpen;
+            this.searchPosDropdownOpen = false;
+        },
+        selectSearchDept(id) {
+            if (!this.searchDepartmentIds.includes(id)) {
+                this.searchDepartmentIds.push(id);
+                this.fetchSearchPositions();
+            }
+            this.searchDeptDropdownOpen = false;
+        },
+        removeSearchDept(id) {
+            this.searchDepartmentIds = this.searchDepartmentIds.filter(did => did !== id);
+            this.searchPositionNames = [];
+            this.fetchSearchPositions();
+        },
+        togglePosDropdown() {
+            if (this.searchAvailablePositions.length > 0) {
+                this.searchPosDropdownOpen = !this.searchPosDropdownOpen;
+            }
+        },
+        selectSearchPosition(name) {
+            if (!this.searchPositionNames.includes(name)) {
+                this.searchPositionNames.push(name);
+            }
+            this.searchPosDropdownOpen = false;
+        },
+        removeSearchPosition(name) {
+            this.searchPositionNames = this.searchPositionNames.filter(pn => pn !== name);
+        },
+        fetchSearchPositions() {
+            if (this.searchDepartmentIds.length === 0) {
+                this.searchAvailablePositions = [];
+                return;
+            }
+            fetch('/api/departments/positions-by-ids', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(this.searchDepartmentIds)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    this.searchAvailablePositions = data;
+                    const validNames = new Set(data.map(p => p.positionName));
+                    this.searchPositionNames = this.searchPositionNames.filter(n => validNames.has(n));
+                });
+        },
         fetchDepartments() {
             fetch('/api/departments')
                 .then(res => res.json())
@@ -86,8 +136,8 @@ const app = Vue.createApp({
             const params = new URLSearchParams();
             if (this.searchName) params.append('name', this.searchName);
             if (this.searchGender) params.append('gender', this.searchGender);
-            if (this.searchDepartment) params.append('department', this.searchDepartment);
-            if (this.searchPosition) params.append('position', this.searchPosition);
+            this.searchDepartmentIds.forEach(id => params.append('departmentIds', id));
+            this.searchPositionNames.forEach(pn => params.append('positionNames', pn));
             if (this.searchMinSalary) params.append('minSalary', this.searchMinSalary);
             if (this.searchMaxSalary) params.append('maxSalary', this.searchMaxSalary);
             if (this.searchMinEntryDate) params.append('minEntryDate', this.searchMinEntryDate);
@@ -107,8 +157,9 @@ const app = Vue.createApp({
         clear() {
             this.searchName = '';
             this.searchGender = '';
-            this.searchDepartment = '';
-            this.searchPosition = '';
+            this.searchDepartmentIds = [];
+            this.searchPositionNames = [];
+            this.searchAvailablePositions = [];
             this.searchMinSalary = '';
             this.searchMaxSalary = '';
             this.searchMinEntryDate = '';

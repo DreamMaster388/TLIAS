@@ -36,7 +36,7 @@
             <h2>员工管理</h2>
             <div class="page-actions">
                 <button class="btn-search-nav" @click="openSearchModal">搜索</button>
-                <button class="btn-add-nav" @click="openAddModal">添加员工</button>
+                <button class="btn-add-nav" @click="openAddModal">添加</button>
             </div>
         </div>
         <div class="table-section">
@@ -128,7 +128,6 @@
         <div class="modal-box">
             <h3>搜索条件</h3>
             <div class="modal-form">
-                <input type="text" placeholder="姓名" v-model="searchName">
                 <input type="text" placeholder="姓名" v-model="searchName">
                 <select v-model="searchGender">
                     <option value="">性别</option>

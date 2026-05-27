@@ -29,4 +29,9 @@ public class DepartmentController {
     public List<DepartmentPosition> findPositions(@PathVariable Long id) {
         return departmentPositionMapper.findByDepartmentId(id);
     }
+
+    @PostMapping("/positions-by-ids")
+    public List<DepartmentPosition> findPositionsByIds(@RequestBody List<Long> departmentIds) {
+        return departmentPositionMapper.findByDepartmentIds(departmentIds);
+    }
 }

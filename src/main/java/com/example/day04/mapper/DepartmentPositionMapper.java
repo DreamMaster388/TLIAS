@@ -9,4 +9,6 @@ import java.util.List;
 @Mapper
 public interface DepartmentPositionMapper {
     List<DepartmentPosition> findByDepartmentId(@Param("departmentId") Long departmentId);
+
+    List<DepartmentPosition> findByDepartmentIds(@Param("departmentIds") List<Long> departmentIds);
 }

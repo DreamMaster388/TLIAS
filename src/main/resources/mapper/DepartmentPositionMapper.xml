@@ -5,4 +5,13 @@
     <select id="findByDepartmentId" resultType="DepartmentPosition">
         SELECT * FROM department_positions WHERE department_id = #{departmentId}
     </select>
+
+    <select id="findByDepartmentIds" resultType="DepartmentPosition">
+        SELECT DISTINCT dp.*
+        FROM department_positions dp
+        WHERE dp.department_id IN
+        <foreach collection="departmentIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
 </mapper>

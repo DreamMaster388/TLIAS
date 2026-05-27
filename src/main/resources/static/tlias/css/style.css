@@ -67,36 +67,7 @@ body { background: #f0f2f5; font-family: 'Segoe UI', 'Microsoft YaHei', sans-ser
     background: #c0392b;
     border-color: #c0392b;
 }
-.navbar .btn-search-nav {
-    padding: 8px 20px;
-    border: 1px solid rgba(255,255,255,.5);
-    border-radius: 6px;
-    background: transparent;
-    color: #fff;
-    font-size: .95rem;
-    cursor: pointer;
-    transition: all .25s;
-    flex-shrink: 0;
-}
-.navbar .btn-search-nav:hover {
-    background: #1e3a5f;
-    border-color: #fff;
-}
-.navbar .btn-add-nav {
-    padding: 8px 20px;
-    border: 1px solid rgba(255,255,255,.5);
-    border-radius: 6px;
-    background: transparent;
-    color: #fff;
-    font-size: .95rem;
-    cursor: pointer;
-    transition: all .25s;
-    flex-shrink: 0;
-}
-.navbar .btn-add-nav:hover {
-    background: #27ae60;
-    border-color: #27ae60;
-}
+
 .btn-search {
     height: 38px;
     padding: 0 28px;
@@ -190,6 +161,26 @@ body { background: #f0f2f5; font-family: 'Segoe UI', 'Microsoft YaHei', sans-ser
     display: flex;
     gap: 10px;
 }
+.page-actions .btn-search-nav,
+.page-actions .btn-add-nav {
+    min-width: 100px;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #1e3a5f, #2a5298);
+    color: #fff;
+    font-size: .85rem;
+    cursor: pointer;
+    transition: all .3s ease;
+    letter-spacing: .5px;
+    text-align: center;
+}
+.page-actions .btn-search-nav:hover,
+.page-actions .btn-add-nav:hover {
+    filter: brightness(1.15);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(30,58,95,.35);
+}
 .placeholder-content {
     display: flex;
     align-items: center;
@@ -232,31 +223,37 @@ body { background: #f0f2f5; font-family: 'Segoe UI', 'Microsoft YaHei', sans-ser
     background: #e8f0fe;
 }
 .btn-edit {
-    padding: 4px 14px;
+    padding: 6px 16px;
     border: none;
-    border-radius: 4px;
-    background: #3498db;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #3498db, #2980b9);
     color: #fff;
     font-size: .82rem;
     cursor: pointer;
-    transition: background .2s;
+    transition: all .3s ease;
+    letter-spacing: .5px;
 }
 .btn-edit:hover {
-    background: #2980b9;
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(52,152,219,.3);
 }
 .btn-delete {
-    padding: 4px 14px;
+    padding: 6px 16px;
     border: none;
-    border-radius: 4px;
-    background: #e74c3c;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
     color: #fff;
     font-size: .82rem;
     cursor: pointer;
-    transition: background .2s;
+    transition: all .3s ease;
+    letter-spacing: .5px;
     margin-left: 6px;
 }
 .btn-delete:hover {
-    background: #c0392b;
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(231,76,60,.3);
 }
 .empty-hint {
     text-align: center;

@@ -13,6 +13,7 @@ public class Employee {
     private String gender;
     private String department;
     private String position;
+    private Long deptPosId;
     private BigDecimal salary;
     private LocalDate entryDate;
     private LocalDateTime lastOperationTime;

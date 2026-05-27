@@ -3,6 +3,7 @@ const PAGE_SIZE = 10;
 const app = Vue.createApp({
     data() {
         return {
+            activeTab: 'employees',
             employees: [],
             total: 0,
             departments: [],
@@ -54,6 +55,10 @@ const app = Vue.createApp({
         }
     },
     methods: {
+        formatDate(dt) {
+            if (!dt) return '';
+            return dt.replace('T', ' ').substring(0, 19);
+        },
         openSearchModal() {
             this.showSearchModal = true;
         },

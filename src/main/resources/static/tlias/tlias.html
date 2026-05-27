@@ -16,11 +16,30 @@
                 <span>尊敬的各位同学，系统将于 2026年5月20日 22:00 至 5月21日 06:00 进行停机维护升级，届时无法正常访问，给您带来的不便敬请谅解！</span>
             </div>
         </div>
-        <button class="btn-search-nav" @click="openSearchModal">搜索</button>
-        <button class="btn-add-nav" @click="openAddModal">添加员工</button>
         <button class="logout">退出登录</button>
     </div>
-    <div class="table-section">
+    <div class="app-body">
+    <aside class="sidebar">
+        <div class="sidebar-item" :class="{ active: activeTab === 'employees' }" @click="activeTab = 'employees'">
+            <span class="sidebar-icon">👥</span> 员工管理
+        </div>
+        <div class="sidebar-item" :class="{ active: activeTab === 'departments' }" @click="activeTab = 'departments'">
+            <span class="sidebar-icon">🏢</span> 部门管理
+        </div>
+        <div class="sidebar-item" :class="{ active: activeTab === 'statistics' }" @click="activeTab = 'statistics'">
+            <span class="sidebar-icon">📊</span> 统计分析
+        </div>
+    </aside>
+    <main class="main-content">
+    <section class="page-section" v-if="activeTab === 'employees'">
+        <div class="page-header">
+            <h2>员工管理</h2>
+            <div class="page-actions">
+                <button class="btn-search-nav" @click="openSearchModal">搜索</button>
+                <button class="btn-add-nav" @click="openAddModal">添加员工</button>
+            </div>
+        </div>
+        <div class="table-section">
         <table>
             <thead>
                 <tr>
@@ -63,6 +82,43 @@
             <button :disabled="currentPage >= totalPages" @click="goPage(totalPages)">尾页</button>
             <span class="total">共 {{ total }} 条</span>
         </div>
+    </div>
+    </section>
+    <section class="page-section" v-if="activeTab === 'departments'">
+        <div class="page-header">
+            <h2>部门管理</h2>
+        </div>
+        <div class="table-section">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>部门名称</th>
+                        <th>创建时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-if="departments.length === 0">
+                        <td colspan="3" class="empty-hint">暂无部门信息</td>
+                    </tr>
+                    <tr v-for="d in departments" :key="d.id">
+                        <td>{{ d.id }}</td>
+                        <td>{{ d.name }}</td>
+                        <td>{{ formatDate(d.createdAt) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section class="page-section" v-if="activeTab === 'statistics'">
+        <div class="page-header">
+            <h2>数据分析</h2>
+        </div>
+        <div class="placeholder-content">
+            <p>统计数据功能开发中...</p>
+        </div>
+    </section>
+    </main>
     </div>
     <div class="footer">
         <p>上海神州科技股份有限公司</p>

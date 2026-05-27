@@ -1,0 +1,71 @@
+<h2>选择你喜欢的侧边栏布局风格</h2>
+<p class="subtitle">左侧导航栏 + 右侧内容区 — 配色与样式可以后续调整</p>
+
+<div class="options" data-multiselect>
+
+  <div class="option" data-choice="dark-sidebar" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>深色侧边栏 - 简洁专业</h3>
+      <div style="display:flex;gap:8px;margin:8px 0 4px;border:1px solid #e0e0e0;border-radius:8px;padding:12px;background:#fafafa;min-height:180px;">
+        <div style="width:72px;background:linear-gradient(180deg,#1e3a5f,#152b47);border-radius:6px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="color:#ffd966;font-size:.55rem;font-weight:700;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.15);width:100%;text-align:center;">IEMS</div>
+          <div style="background:rgba(255,255,255,.12);color:#fff;font-size:.5rem;padding:4px 2px;border-radius:4px;width:100%;text-align:center;">员工</div>
+          <div style="color:rgba(255,255,255,.6);font-size:.5rem;padding:4px 2px;border-radius:4px;width:100%;text-align:center;">部门</div>
+          <div style="color:rgba(255,255,255,.6);font-size:.5rem;padding:4px 2px;border-radius:4px;width:100%;text-align:center;">统计</div>
+        </div>
+        <div style="flex:1;padding:4px 8px;display:flex;flex-direction:column;gap:4px;">
+          <div style="height:14px;background:#e8e8e8;border-radius:3px;width:60%;"></div>
+          <div style="height:10px;background:#f0f0f0;border-radius:3px;width:40%;"></div>
+          <div style="height:10px;background:#f0f0f0;border-radius:3px;width:30%;"></div>
+        </div>
+      </div>
+      <p>侧边栏与顶部导航栏同色系（深蓝），与现有品牌一致。图标+文字组合，紧凑简洁。</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="light-sidebar" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>浅色侧边栏 - 清爽通透</h3>
+      <div style="display:flex;gap:8px;margin:8px 0 4px;border:1px solid #e0e0e0;border-radius:8px;padding:12px;background:#fafafa;min-height:180px;">
+        <div style="width:72px;background:#f5f7fa;border-right:1px solid #e0e0e0;border-radius:6px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="color:#1e3a5f;font-size:.55rem;font-weight:700;padding:4px 0;border-bottom:1px solid #e0e0e0;width:100%;text-align:center;">IEMS</div>
+          <div style="background:#1e3a5f;color:#fff;font-size:.5rem;padding:4px 2px;border-radius:4px;width:100%;text-align:center;">员工</div>
+          <div style="color:#555;font-size:.5rem;padding:4px 2px;border-radius:4px;width:100%;text-align:center;">部门</div>
+          <div style="color:#555;font-size:.5rem;padding:4px 2px;border-radius:4px;width:100%;text-align:center;">统计</div>
+        </div>
+        <div style="flex:1;padding:4px 8px;display:flex;flex-direction:column;gap:4px;">
+          <div style="height:14px;background:#e8e8e8;border-radius:3px;width:60%;"></div>
+          <div style="height:10px;background:#f0f0f0;border-radius:3px;width:40%;"></div>
+          <div style="height:10px;background:#f0f0f0;border-radius:3px;width:30%;"></div>
+        </div>
+      </div>
+      <p>侧边栏为浅灰背景，与内容区底色（白色）形成柔和对比。活动项用深蓝高亮，视觉层次清晰。</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="wide-sidebar" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>宽侧边栏 - 信息完整</h3>
+      <div style="display:flex;gap:8px;margin:8px 0 4px;border:1px solid #e0e0e0;border-radius:8px;padding:12px;background:#fafafa;min-height:180px;">
+        <div style="width:120px;background:linear-gradient(180deg,#1e3a5f,#152b47);border-radius:6px;padding:12px 8px;display:flex;flex-direction:column;gap:4px;">
+          <div style="color:#ffd966;font-size:.6rem;font-weight:700;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.15);text-align:center;">IEMS 系统</div>
+          <div style="background:rgba(255,255,255,.12);color:#fff;font-size:.5rem;padding:6px 8px;border-radius:4px;">👥 员工管理</div>
+          <div style="color:rgba(255,255,255,.6);font-size:.5rem;padding:6px 8px;border-radius:4px;">🏢 部门管理</div>
+          <div style="color:rgba(255,255,255,.6);font-size:.5rem;padding:6px 8px;border-radius:4px;">📊 统计分析</div>
+        </div>
+        <div style="flex:1;padding:4px 8px;display:flex;flex-direction:column;gap:4px;">
+          <div style="height:14px;background:#e8e8e8;border-radius:3px;width:60%;"></div>
+          <div style="height:10px;background:#f0f0f0;border-radius:3px;width:40%;"></div>
+          <div style="height:10px;background:#f0f0f0;border-radius:3px;width:30%;"></div>
+        </div>
+      </div>
+      <p>侧边栏更宽（~200px），显示图标+完整文字标签，方便日后增加子菜单或折叠功能。信息密度更高。</p>
+    </div>
+  </div>
+
+</div>
+
+<p style="margin-top:20px;font-size:.85rem;color:#888;">可多选对比。选择后告诉我你的偏好，或告诉我你的其他想法。</p>

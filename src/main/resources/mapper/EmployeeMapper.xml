@@ -18,11 +18,17 @@
             <if test="criteria.gender != null and criteria.gender != ''">
                 AND e.gender = #{criteria.gender}
             </if>
-            <if test="criteria.department != null and criteria.department != ''">
-                AND d.name LIKE CONCAT('%', #{criteria.department}, '%')
+            <if test="criteria.departmentIds != null and criteria.departmentIds.size() > 0">
+                AND d.id IN
+                <foreach collection="criteria.departmentIds" item="id" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
             </if>
-            <if test="criteria.position != null and criteria.position != ''">
-                AND dp.position_name LIKE CONCAT('%', #{criteria.position}, '%')
+            <if test="criteria.positionNames != null and criteria.positionNames.size() > 0">
+                AND dp.position_name IN
+                <foreach collection="criteria.positionNames" item="pn" open="(" separator="," close=")">
+                    #{pn}
+                </foreach>
             </if>
             <if test="criteria.minSalary != null">
                 AND e.salary &gt;= #{criteria.minSalary}
